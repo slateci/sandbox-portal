@@ -1,0 +1,21 @@
+{%extends "base.jinja2"%}
+
+{%block title%}Launch New Shell{%endblock%}
+
+{%block body%}
+{%include "header.jinja2"%}
+
+    <div class="container">
+      <div class="row">
+        <h1>SLATE Sandbox</h1>
+      </div>
+
+      <div>
+        <a href="{{url_for('sandbox/new')>
+          <button type="button" class="btn btn-md btn-primary">
+            Launch!
+          </button>
+        </a>
+      </div>
+    </div> <!-- container -->
+{%endblock%}

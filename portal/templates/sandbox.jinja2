@@ -1,0 +1,46 @@
+<meta http-equiv="refresh" content="10; URL={{url_for('sandbox')}}>
+
+{%extends "base.jinja2"%}
+
+{%block title%}Launch New Sandbox{%endblock%}
+
+{%block body%}
+{%include "header.jinja2"%}
+
+    <div class="container">
+      {%- if endpoint %}
+      <div>
+        <p> Your deployment is ready! </p>
+      </div>
+      {%- else %} 
+      <div>
+        <p> Press "Launch" to start your sandbox, or press "Reset" at any time to start over. </p>
+      </div>
+      {%- endif %} 
+
+      <div>
+      {%- if endpoint %}
+        <a href="{{endpoint}}">
+          <button type="button" class="btn btn-md btn-primary">
+            Go to Sandbox
+          </button>
+        </a>
+      {%- else %} 
+        <a href="{{url_for('launch')}}">
+          <button type="button" class="btn btn-md btn-primary">
+            Launch
+          </button>
+        </a>
+      {%- endif %} 
+        <a href="{{url_for('sandbox')}}">
+          <button type="button" class="btn btn-md btn-primary">
+            Refresh
+          </button>
+        <a href="{{url_for('delete')}}">
+          <button type="button" class="btn btn-md btn-primary">
+            Reset
+          </button>
+        </a>
+      </div>
+    </div> <!-- container -->
+{%endblock%}
