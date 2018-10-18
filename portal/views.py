@@ -81,6 +81,28 @@ def delete():
     r = requests.delete(spawner_endpoint + "/account/" + session.get('primary_identity'))
     return redirect(url_for('sandbox'))
 
+@app.route('/tutorial', methods=['GET'])
+@authenticated
+def tutorial():
+    endpoint=None
+    authtoken = None
+    if 'authtoken' in session:
+        authtoken = session['authtoken'] 
+        app.logger.info("Credential JSON: %s" % authtoken)
+    r2 = requests.get(spawner_endpoint + "/service/" + session.get('primary_identity'))
+    if r2.status_code == requests.codes.ok:
+        s = r2.json()
+    else:
+        s = "Error getting service IP/port"
+    if authtoken is not None:
+        if 'endpoint' in s:
+            endpoint = "http://" + authtoken + "@" + s['endpoint']
+    return render_template('tutorial.jinja2', endpoint=endpoint)
+
+@app.route('/tutorial_instructions', methods=['GET'])
+@authenticated
+def tutorial_instructions():
+    return render_template('tutorial_instructions.jinja2')
 
 @app.route('/logout', methods=['GET'])
 @authenticated
