@@ -54,7 +54,7 @@ def sandbox():
             s = "Error getting service IP/port"
         if authtoken is not None:
             if 'endpoint' in s:
-                endpoint = "http://" + authtoken + "@" + s['endpoint']
+                endpoint = "https://" + s['endpoint'] + "?auth=" + authtoken 
     else:
         s = "No running sandboxes"
 
@@ -96,7 +96,7 @@ def tutorial():
         s = "Error getting service IP/port"
     if authtoken is not None:
         if 'endpoint' in s:
-            endpoint = "http://" + authtoken + "@" + s['endpoint']
+            endpoint = "https://" + s['endpoint'] + "?auth=" + authtoken 
     return render_template('tutorial.jinja2', endpoint=endpoint)
 
 @app.route('/tutorial_instructions', methods=['GET'])
