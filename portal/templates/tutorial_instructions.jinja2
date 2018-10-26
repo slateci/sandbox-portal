@@ -1,7 +1,7 @@
 {%block body%}
 <h2>1</h2>
 
-<p>The command line interface to the SLATE platform is via the <code>slate</code> executable. You check that it successfully connects to the SLATE platform and find out what resources the platform offers (in a very basic way) by running</p>
+<p>The command line interface to the SLATE platform is via the <code>slate</code> executable. You can check that it successfully connects to the SLATE platform and find out what resources the platform offers (in a very basic way) by running</p>
 
 <pre><code>slate cluster list
 </code></pre>
@@ -42,13 +42,11 @@
 <pre><code>slate app list
 </code></pre>
 
-<p>(At the moment SLATE is still under rapid development, so many more applications are in the <em>development</em> catalog. These are not entirely finished being packaged, but generally work. You can view them by adding the <code>--dev</code> option to the list command.)</p>
-
 <h2>6</h2>
 
 <p>You can test out deploying an application by running an instance of the nginx HTTP server (currently found in the development catalog). The first step of deploying an application is configuring the settings you want it to use when it runs. To start this process, you fetch the base configuration for the application from the catalog:</p>
 
-<pre><code>slate app get-conf --dev nginx &gt; my-nginx-settings.yaml
+<pre><code>slate app get-conf nginx &gt; my-nginx-settings.yaml
 </code></pre>
 
 <p>This will download the default settings and place them in a file for you to edit locally. </p>
@@ -65,7 +63,7 @@
 
 <p>When you have your configuration file ready you can install the application instance:</p>
 
-<pre><code>slate app install --dev nginx --vo vo-name --cluster slate-tutorial --conf my-nginx-settings.yaml
+<pre><code>slate app install nginx --vo vo-name --cluster slate-tutorial --conf my-nginx-settings.yaml
 </code></pre>
 
 <p>It is necessary to specify the application, which VO will own the it (since you can belong to several), on which cluster you want it to be deployed, and which configuration file to use. </p>
