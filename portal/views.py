@@ -18,10 +18,11 @@ from portal.utils import (load_portal_client, get_portal_tokens,
 
 spawner_endpoint = "http://localhost:18081"
 
+
 @app.route('/', methods=['GET'])
 def home():
     """Home page - play with it if you must!"""
-    return render_template('home.jinja2')
+    return render_template('home.html')
 
 
 @app.route('/signup', methods=['GET'])
@@ -43,66 +44,83 @@ def sandbox():
     endpoint = None
     authtoken = None
     if 'authtoken' in session:
-        authtoken = session['authtoken'] 
+        authtoken = session['authtoken']
         app.logger.info("Credential JSON: %s" % authtoken)
-    r = requests.get(spawner_endpoint + "/pod_ready/" + session.get('primary_identity'))
-    if r.status_code == requests.codes.ok:
-        r2 = requests.get(spawner_endpoint + "/service/" + session.get('primary_identity'))
-        if r2.status_code == requests.codes.ok:
-            s = r2.json()
+    try:
+        r = requests.get(spawner_endpoint + "/pod_ready/"
+                         + session.get('primary_identity'))
+        if r.status_code == requests.codes.ok:
+            r2 = requests.get(spawner_endpoint + "/service/"
+                              + session.get('primary_identity'))
+            if r2.status_code == requests.codes.ok:
+                s = r2.json()
+            else:
+                s = "Error getting service IP/port"
+            if authtoken is not None:
+                if 'endpoint' in s:
+                    endpoint = "https://" + \
+                        s['endpoint'] + "?auth=" + authtoken
         else:
-            s = "Error getting service IP/port"
-        if authtoken is not None:
-            if 'endpoint' in s:
-                endpoint = "https://" + s['endpoint'] + "?auth=" + authtoken 
-    else:
+            s = "No running sandboxes"
+    except:
         s = "No running sandboxes"
 
-    return render_template('sandbox.jinja2',status=s,endpoint=endpoint)
+    return render_template('sandbox.html', status=s, endpoint=endpoint)
+
 
 @app.route('/sandbox/new', methods=['GET'])
 @authenticated
 def launch():
     """Launch a new shell"""
-    r = requests.put(spawner_endpoint + "/account/" + session.get('primary_identity'))
-    if r.status_code == requests.codes.ok:
-        s = r.json()
-        app.logger.info("Setting credentials to: %s" % s)
-        session['authtoken'] = s['auth']
-    else:
+    try:
+        r = requests.put(spawner_endpoint + "/account/"
+                         + session.get('primary_identity'))
+        if r.status_code == requests.codes.ok:
+            s = r.json()
+            app.logger.info("Setting credentials to: %s" % s)
+            session['authtoken'] = s['auth']
+        else:
+            s = "Error creating new sandbox!"
+    except:
         s = "Error creating new sandbox!"
 
     return redirect(url_for('sandbox'))
+
 
 @app.route('/sandbox/delete', methods=['GET'])
 @authenticated
 def delete():
     """ Delete a shell """
-    r = requests.delete(spawner_endpoint + "/account/" + session.get('primary_identity'))
+    r = requests.delete(spawner_endpoint + "/account/"
+                        + session.get('primary_identity'))
     return redirect(url_for('sandbox'))
+
 
 @app.route('/tutorial', methods=['GET'])
 @authenticated
 def tutorial():
-    endpoint=None
+    endpoint = None
     authtoken = None
     if 'authtoken' in session:
-        authtoken = session['authtoken'] 
+        authtoken = session['authtoken']
         app.logger.info("Credential JSON: %s" % authtoken)
-    r2 = requests.get(spawner_endpoint + "/service/" + session.get('primary_identity'))
+    r2 = requests.get(spawner_endpoint + "/service/"
+                      + session.get('primary_identity'))
     if r2.status_code == requests.codes.ok:
         s = r2.json()
     else:
         s = "Error getting service IP/port"
     if authtoken is not None:
         if 'endpoint' in s:
-            endpoint = "https://" + s['endpoint'] + "?auth=" + authtoken 
-    return render_template('tutorial.jinja2', endpoint=endpoint)
+            endpoint = "https://" + s['endpoint'] + "?auth=" + authtoken
+    return render_template('tutorial.html', endpoint=endpoint)
+
 
 @app.route('/tutorial_instructions', methods=['GET'])
 @authenticated
 def tutorial_instructions():
-    return render_template('tutorial_instructions.jinja2')
+    return render_template('tutorial_instructions.html')
+
 
 @app.route('/logout', methods=['GET'])
 @authenticated
@@ -162,13 +180,13 @@ def profile():
         if request.args.get('next'):
             session['next'] = get_safe_redirect()
 
-        return render_template('profile.jinja2')
+        return render_template('profile.html')
     elif request.method == 'POST':
         name = session['name'] = request.form['name']
         email = session['email'] = request.form['email']
         institution = session['institution'] = request.form['institution']
 
-        #database.save_profile(identity_id=session['primary_identity'],
+        # database.save_profile(identity_id=session['primary_identity'],
         #                      name=name,
         #                      email=email,
         #                      institution=institution)
@@ -190,8 +208,8 @@ def authcallback():
     # If we're coming back from Globus Auth in an error state, the error
     # will be in the "error" query string parameter.
     if 'error' in request.args:
-        flash("You could not be logged into the portal: " +
-              request.args.get('error_description', request.args['error']))
+        flash("You could not be logged into the portal: "
+              + request.args.get('error_description', request.args['error']))
         return redirect(url_for('home'))
 
     # Set up our Globus Auth/OAuth2 state
@@ -226,17 +244,5 @@ def authcallback():
             primary_username=id_token.get('preferred_username'),
             primary_identity=id_token.get('sub'),
         )
-
-        #profile = database.load_profile(session['primary_identity'])
-
-        #if profile:
-        #    name, email, institution = profile
-
-        #    session['name'] = name
-        #    session['email'] = email
-        #    session['institution'] = institution
-#        else:
-#            return redirect(url_for('profile',
-#                            next=url_for('home')))
 #
         return redirect(url_for('home'))

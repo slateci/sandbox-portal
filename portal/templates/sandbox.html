@@ -1,35 +1,34 @@
-{%extends "base.jinja2"%}
+{%extends "base.html"%}
 
 {%block title%}Launch New Sandbox{%endblock%}
 
 {%block body%}
-{%include "header.jinja2"%}
-
+<section id="sandbox">
     <div class="container">
-      {%- if endpoint %}
+      {% if endpoint %}
       <div>
         <p> Your deployment is ready! </p>
       </div>
-      {%- else %} 
+      {% else %}
       <div>
         <p> Press "Launch" to start your sandbox, or press "Reset" at any time to start over. </p>
       </div>
-      {%- endif %} 
+      {% endif %}
 
       <div>
-      {%- if endpoint %}
+      {% if endpoint %}
         <a href="{{url_for('tutorial')}}">
           <button type="button" class="btn btn-md btn-primary">
             Go to Sandbox
           </button>
         </a>
-      {%- else %} 
+      {% else %}
         <a href="{{url_for('launch')}}">
           <button type="button" class="btn btn-md btn-primary">
             Launch
           </button>
         </a>
-      {%- endif %} 
+      {% endif %}
         <a href="{{url_for('sandbox')}}">
           <button type="button" class="btn btn-md btn-primary">
             Refresh
@@ -41,4 +40,5 @@
         </a>
       </div>
     </div> <!-- container -->
+</section>
 {%endblock%}
