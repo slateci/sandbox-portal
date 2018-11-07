@@ -10,8 +10,12 @@
     <img src="{{url_for('static', filename='img/slate-logo-large.png')}}" style="width:60%;">
     <h1>Welcome to SANDBOX</h1>
     <p class="lead">Launch Sessions to Access Tutorial</p>
+    {% if session.get('is_authenticated') %}
+    <a role="button" href="{{url_for('sandbox')}}" class="btn btn-outline-light">Launch New Session</a>
+    {% else %}
     <a role="button" href="{{url_for('login')}}" class="btn btn-outline-light">Login</a>
     <a role="button" href="{{url_for('signup')}}" class="btn btn-outline-light">Sign Up</a>
+    {% endif %}
   </div>
 </header>
 
