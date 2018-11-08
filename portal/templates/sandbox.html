@@ -17,26 +17,19 @@
 
       <div>
       {% if endpoint %}
-        <a href="{{url_for('tutorial')}}">
-          <button type="button" class="btn btn-md btn-primary">
+        <a href="{{url_for('tutorial')}}" class="btn btn-md btn-primary">
             Go to Sandbox
-          </button>
         </a>
       {% else %}
-        <a href="{{url_for('launch')}}">
-          <button type="button" class="btn btn-md btn-primary">
+        <a href="{{url_for('launch')}}" class="btn btn-md btn-primary">
             Launch
-          </button>
         </a>
       {% endif %}
-        <a href="{{url_for('sandbox')}}">
-          <button type="button" class="btn btn-md btn-primary">
+        <a href="{{url_for('sandbox')}}" class="btn btn-md btn-primary">
             Refresh
-          </button>
-        <a href="{{url_for('delete')}}">
-          <button type="button" class="btn btn-md btn-primary">
+        </a>
+        <a href="{{url_for('delete')}}" class="btn btn-md btn-primary">
             Reset
-          </button>
         </a>
       </div>
     </div> <!-- container -->
