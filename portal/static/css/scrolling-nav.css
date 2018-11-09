@@ -15,7 +15,14 @@ header {
 }
 
 section {
-  padding: 150px 0;
+  padding: 150px 10px;
+}
+#tutorial iframe {
+  width: 50%;
+  height: 300px;
+  overflow: hidden;
+  float: left;
+
 }
 
 .lead {

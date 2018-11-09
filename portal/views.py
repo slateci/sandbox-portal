@@ -47,11 +47,11 @@ def sandbox():
         authtoken = session['authtoken']
         app.logger.info("Credential JSON: %s" % authtoken)
     try:
-        r = requests.get(spawner_endpoint + "/pod_ready/"
-                         + session.get('primary_identity'))
+        r = requests.get(spawner_endpoint + "/pod_ready/" +
+                         session.get('primary_identity'))
         if r.status_code == requests.codes.ok:
-            r2 = requests.get(spawner_endpoint + "/service/"
-                              + session.get('primary_identity'))
+            r2 = requests.get(spawner_endpoint + "/service/" +
+                              session.get('primary_identity'))
             if r2.status_code == requests.codes.ok:
                 s = r2.json()
             else:
@@ -73,8 +73,8 @@ def sandbox():
 def launch():
     """Launch a new shell"""
     try:
-        r = requests.put(spawner_endpoint + "/account/"
-                         + session.get('primary_identity'))
+        r = requests.put(spawner_endpoint + "/account/" +
+                         session.get('primary_identity'))
         if r.status_code == requests.codes.ok:
             s = r.json()
             app.logger.info("Setting credentials to: %s" % s)
@@ -91,8 +91,8 @@ def launch():
 @authenticated
 def delete():
     """ Delete a shell """
-    r = requests.delete(spawner_endpoint + "/account/"
-                        + session.get('primary_identity'))
+    r = requests.delete(spawner_endpoint + "/account/" +
+                        session.get('primary_identity'))
     return redirect(url_for('sandbox'))
 
 
@@ -104,8 +104,8 @@ def tutorial():
     if 'authtoken' in session:
         authtoken = session['authtoken']
         app.logger.info("Credential JSON: %s" % authtoken)
-    r2 = requests.get(spawner_endpoint + "/service/"
-                      + session.get('primary_identity'))
+    r2 = requests.get(spawner_endpoint + "/service/" +
+                      session.get('primary_identity'))
     if r2.status_code == requests.codes.ok:
         s = r2.json()
     else:
@@ -208,8 +208,8 @@ def authcallback():
     # If we're coming back from Globus Auth in an error state, the error
     # will be in the "error" query string parameter.
     if 'error' in request.args:
-        flash("You could not be logged into the portal: "
-              + request.args.get('error_description', request.args['error']))
+        flash("You could not be logged into the portal: " +
+              request.args.get('error_description', request.args['error']))
         return redirect(url_for('home'))
 
     # Set up our Globus Auth/OAuth2 state
