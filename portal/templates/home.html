@@ -8,7 +8,7 @@
 <header class="text-white" style="height: 850px; background-color: #286AC7;">
   <div class="container text-center">
     <img src="{{url_for('static', filename='img/slate-logo-large.png')}}" style="width:60%;">
-    <h1>Welcome to SANDBOX</h1>
+    <h1>Welcome to the SLATE Sandbox</h1>
     <p class="lead">Launch Sessions to Access Tutorial</p>
     {% if session.get('is_authenticated') %}
     <a role="button" href="{{url_for('sandbox')}}" class="btn btn-outline-light">Launch New Session</a>
