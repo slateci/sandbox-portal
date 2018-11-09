@@ -19,7 +19,7 @@ header {
 section {
   /* padding: 60px 10px; */
   padding-top: 55px;
-  height: 90%;
+  height: 85%;
 }
 
 section .container {
@@ -33,6 +33,24 @@ section #tutorial-container #iframe-container-tutorial {
   height: 100%;
   padding: 25px;
   overflow-y: scroll;
+}
+section #tutorial-container #iframe-container-tutorial span {
+  float: left;
+  font-weight: 600;
+  padding-right: 5px;
+  color: #286AC7;
+}
+
+pre {
+  background-color: #f8f8f8;
+  font-weight: bold;
+  tab-size: 4;
+  display: block;
+  margin: 20px 0;
+  padding: 15px;
+  position: relative;
+  overflow-x: auto;
+  white-space: pre;
 }
 
 #tutorial iframe {
