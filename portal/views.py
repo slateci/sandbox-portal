@@ -37,6 +37,12 @@ def login():
     return redirect(url_for('authcallback'))
 
 
+@app.route('/testing', methods=['GET'])
+def testing():
+    """Testing"""
+    return render_template('testing.html')
+
+
 @app.route('/sandbox', methods=['GET'])
 @authenticated
 def sandbox():
