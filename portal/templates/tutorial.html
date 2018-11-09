@@ -41,7 +41,7 @@
       
       <p>In general you cannot use a cluster connected to SLATE without the permission of the cluster owner. Some cluster owners mark their clusters as allowing access for all VOs, so you can use them right away, while for others you will need to ask the owners for permission. You can check a given cluster's policies with the <code>slate cluster list-allowed-vos</code> command, which takes the cluster to query as an argument. If you run</p>
       
-      <pre><code>slate cluster list-allowed-vos slate-tutorial
+      <pre><code>slate cluster list-allowed-vos sandbox
       </code></pre>
       
       <p>you should see that all VOs are allowed to use the tutorial cluster, including the one you just created. </p>
@@ -74,7 +74,7 @@
       
       <p>When you have your configuration file ready you can install the application instance:</p>
       
-      <pre><code>slate app install nginx --vo vo-name --cluster slate-tutorial --conf my-nginx-settings.yaml
+      <pre><code>slate app install nginx --vo vo-name --cluster sandbox --conf my-nginx-settings.yaml
       </code></pre>
       
       <p>It is necessary to specify the application, which VO will own the it (since you can belong to several), on which cluster you want it to be deployed, and which configuration file to use. </p>
@@ -95,8 +95,8 @@
       <p>To get more information about your instance, including how to access the page that it is serving, use the <code>slate instance info</code> command, which takes the instance ID as an argument. You should see something like:</p>
       
       <pre><code>$ slate instance info Instance_586f0424-3097-4b86-8d3b-c4f53ab78e01
-      Name      Started           VO  Cluster        ID
-      nginx-cnw 2018-Oct-17       cnw slate-tutorial Instance_586f0424-3097-4b86-
+      Name      Started           VO  Cluster ID
+      nginx-cnw 2018-Oct-17       cnw sandbox Instance_586f0424-3097-4b86-
                 23:04:07                             8d3b-c4f53ab78e01
                 UTC
       
