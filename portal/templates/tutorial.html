@@ -14,8 +14,7 @@
 
       <span>1.</span><p>The command line interface to the SLATE platform is via the <code>slate</code> executable. You can check that it successfully connects to the SLATE platform and find out what resources the platform offers (in a very basic way) by running</p>
 
-      <pre><code>slate cluster list
-      </code></pre>
+      <pre><code>slate cluster list</code></pre>
 
       <p>You should see at one cluster in the listing, named 'sandbox'. </p>
 
@@ -23,8 +22,7 @@
 
       <span>2.</span><p>At any time you can get information about the capabilities of the <code>slate</code> client by running it with the <code>--help</code> option. You can also apply this option to its subcommands (and sub-subcommands) to get more information about them. Running</p>
 
-      <pre><code>slate cluster --help
-      </code></pre>
+      <pre><code>slate cluster --help</code></pre>
 
       <p>will show you that the cluster subcommand has several other subcommands besides just <code>list</code>. </p>
 
@@ -32,8 +30,7 @@
 
       <span>3.</span><p>To use the resources on the SLATE platform, you must first belong to a <em>virtual organization</em> (VO). Many users will not ned to create their own VOs, but will join VOs started by their organizations. However, for the tutorial you should just create your own VO. You can do this with the command</p>
 
-      <pre><code>slate vo create vo-name
-      </code></pre>
+      <pre><code>slate vo create vo-name</code></pre>
 
       <p>where <code>vo-name</code> is the name you choose for your VO. Lowercase letters, numbers and dashes are allowed, although the name may not start or end with a dash. It is recommended to pick something fairly short and descriptive for the VO name, but for the tutorial it doesn't matter very much. Your VO name also needs to be unique; the command <code>slate vo list</code> will show all existing VOs, but since the list may be long it may be useful to use <code>./slate --output custom-columns=:/metadata/name vo list | grep 'vo-name'</code>, replacing <code>vo-name</code> with the name you want to use. If <code>vo-name</code> is printed the name is already in use, otherwise you are free to take it. </p>
 
@@ -41,8 +38,7 @@
 
       <span>4.</span><p>In general you cannot use a cluster connected to SLATE without the permission of the cluster owner. Some cluster owners mark their clusters as allowing access for all VOs, so you can use them right away, while for others you will need to ask the owners for permission. You can check a given cluster's policies with the <code>slate cluster list-allowed-vos</code> command, which takes the cluster to query as an argument. If you run</p>
 
-      <pre><code>slate cluster list-allowed-vos sandbox
-      </code></pre>
+      <pre><code>slate cluster list-allowed-vos sandbox</code></pre>
 
       <p>you should see that all VOs are allowed to use the tutorial cluster, including the one you just created. </p>
 
@@ -50,15 +46,13 @@
 
       <span>5.</span><p>Before deploying an application, you probably want to see what applications are available to deploy. SLATE maintains a curated application catalog of applications which are prepared for use with it. You can get a listing of this catalog by running</p>
 
-      <pre><code>slate app list
-      </code></pre>
+      <pre><code>slate app list</code></pre>
 
       <!-- <h2>6</h2> -->
 
       <span>6.</span><p>You can test out deploying an application by running an instance of the nginx HTTP server (currently found in the development catalog). The first step of deploying an application is configuring the settings you want it to use when it runs. To start this process, you fetch the base configuration for the application from the catalog:</p>
 
-      <pre><code>slate app get-conf nginx &gt; my-nginx-settings.yaml
-      </code></pre>
+      <pre><code>slate app get-conf nginx &gt; my-nginx-settings.yaml</code></pre>
 
       <p>This will download the default settings and place them in a file for you to edit locally. </p>
 
@@ -74,8 +68,7 @@
 
       <span>8.</span><p>When you have your configuration file ready you can install the application instance:</p>
 
-      <pre><code>slate app install nginx --vo vo-name --cluster sandbox --conf my-nginx-settings.yaml
-      </code></pre>
+      <pre><code>slate app install nginx --vo vo-name --cluster sandbox --conf my-nginx-settings.yaml</code></pre>
 
       <p>It is necessary to specify the application, which VO will own it (since you can belong to several), on which cluster you want it to be deployed, and which configuration file to use. </p>
 
@@ -85,8 +78,7 @@
 
       <span>9.</span><p>To see your new application instance in the SLATE system you can run</p>
 
-      <pre><code>slate instance list --vo vo-name
-      </code></pre>
+      <pre><code>slate instance list --vo vo-name</code></pre>
 
       <p>Specifying the VO is not required, but limits the listing to just your instances. This command will show you basic information about which instances you have running where. </p>
 
@@ -121,6 +113,8 @@ Data: |-
 Successfully deleted instance Instance_586f0424-3097-4b86-8d3b-c4f53ab78e01</code></pre>
 
       For more information on using SLATE, such as registering a cluster of your own or obtaining a local development environment, please see the <a href="http://slateci.io/docs/quickstart/" style="color:#286AC7;">SLATE Quickstart documentation</a>.
+      
+      <p>When you are finished using this page you can (but do not have to) use `exit` to disconnect your terminal. If you want to delete your sandbox environment entirely you can <a href="https://sandbox.slateci.io:5000/sandbox/delete">reset</a> it. Otherwise, your environment will be automatically deleted after a a few days of inactivity. 
 
     </div>
   </div>
