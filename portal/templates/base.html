@@ -53,7 +53,7 @@
               <a class="nav-link js-scroll-trigger" href="{{url_for('sandbox')}}">Launch New Session</a>
             </li> -->
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="{{url_for('logout')}}">Logout {{session['email']}}</a>
+              <a class="nav-link js-scroll-trigger" href="{{url_for('logout')}}">Logout ({{session['email']}})</a>
             </li>
             {% else %}
             <li class="nav-item">

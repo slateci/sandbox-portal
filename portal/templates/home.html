@@ -9,9 +9,9 @@
   <div class="container text-center">
     <img src="{{url_for('static', filename='img/slate-logo-large.png')}}" style="width:60%;">
     <h1>Welcome to the SLATE Sandbox</h1>
-    <p class="lead">Launch a session to access the tutorial</p>
+    <p class="lead">Launch an interactive SLATE tutorial session</p>
     {% if session.get('is_authenticated') %}
-    <a role="button" href="{{url_for('sandbox')}}" class="btn btn-outline-light">Launch New Session</a>
+    <a role="button" href="{{url_for('sandbox')}}" class="btn btn-outline-light">Click here to get started</a>
     {% else %}
     <a role="button" href="{{url_for('login')}}" class="btn btn-outline-light">Login</a>
     <a role="button" href="{{url_for('signup')}}" class="btn btn-outline-light">Sign Up</a>
