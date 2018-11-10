@@ -12,11 +12,12 @@
       <!-- <iframe scrolling="yes" align="right" src='{{url_for('tutorial_instructions')}}'></iframe> -->
       <!-- <h2>1</h2> -->
 
-      <span>1.</span><p>The command line interface to the SLATE platform is via the <code>slate</code> executable. You can check that it successfully connects to the SLATE platform and find out what resources the platform offers (in a very basic way) by running</p>
-
+      <span>1.</span>
+      <p> In this tutorial, we'll guide you through some SLATE commandline client options and launch a simple edge service. </p> 
+      <p> On the left pane, we have provided an interactive shell that you can use to run SLATE commands and edit configuration files. Let's start by listing all clusters available in this SLATE federation:</p>
       <pre><code>slate cluster list</code></pre>
 
-      <p>You should see at one cluster in the listing, named 'sandbox'. </p>
+      <p>Assuming the client has successfully contacted the SLATE central service, you should see one cluster named 'sandbox'. In a real SLATE federation, you can expect to see many clusters here. </p>
 
       <!-- <h2>2</h2> -->
 
@@ -28,11 +29,14 @@
 
       <!-- <h2>3</h2> -->
 
-      <span>3.</span><p>To use the resources on the SLATE platform, you must first belong to a <em>virtual organization</em> (VO). Many users will not ned to create their own VOs, but will join VOs started by their organizations. However, for the tutorial you should just create your own VO. You can do this with the command</p>
+      <span>3.</span><p>To use the resources on the SLATE platform, you must first belong to a <em>virtual organization</em> (VO). You can list existing VOs with:</p>
+      <pre><code>slate vo list </code></pre> 
+      
+      <p>For the tutorial, you should create your own VO. In practice, most users will want to join an existing VO for reasons that we'll touch on shortly. You can create your VO with the command</p>
 
       <pre><code>slate vo create vo-name</code></pre>
 
-      <p>where <code>vo-name</code> is the name you choose for your VO. Lowercase letters, numbers and dashes are allowed, although the name may not start or end with a dash. It is recommended to pick something fairly short and descriptive for the VO name, but for the tutorial it doesn't matter very much. Your VO name also needs to be unique; the command <code>slate vo list</code> will show all existing VOs, but since the list may be long it may be useful to use <code>./slate --output custom-columns=:/metadata/name vo list | grep 'vo-name'</code>, replacing <code>vo-name</code> with the name you want to use. If <code>vo-name</code> is printed the name is already in use, otherwise you are free to take it. </p>
+      <p>where <code>vo-name</code> is the name you choose for your VO. Lowercase letters, numbers and dashes are allowed, although the name may not start or end with a dash.
 
       <!-- <h2>4</h2> -->
 
@@ -40,17 +44,19 @@
 
       <pre><code>slate cluster list-allowed-vos sandbox</code></pre>
 
-      <p>you should see that all VOs are allowed to use the tutorial cluster, including the one you just created. </p>
+      <p>you should see an asterisk (*) indicating that all VOs are allowed, including the one you just created.</p>
 
       <!-- <h2>5</h2> -->
 
-      <span>5.</span><p>Before deploying an application, you probably want to see what applications are available to deploy. SLATE maintains a curated application catalog of applications which are prepared for use with it. You can get a listing of this catalog by running</p>
+      <span>5.</span><p>Much like an "app store", the SLATE team curates a catalog of software that can be deployed onto SLATE-enabled clusters. You can check the available applications via:
 
       <pre><code>slate app list</code></pre>
 
       <!-- <h2>6</h2> -->
 
-      <span>6.</span><p>You can test out deploying an application by running an instance of the nginx HTTP server (currently found in the development catalog). The first step of deploying an application is configuring the settings you want it to use when it runs. To start this process, you fetch the base configuration for the application from the catalog:</p>
+      <p>By default, this command only shows "stable" applications. You can view more applications being developed for SLATE if you use the same command with the <code>--dev</code> flag added. </p>
+      <span>6.</span><p>The application we'll deploy for the tutorial is the Nginx HTTP server. First, you'll want to retrieve the SLATE configuration file for Nginx:
+
 
       <pre><code>slate app get-conf nginx &gt; my-nginx-settings.yaml</code></pre>
 
@@ -58,7 +64,7 @@
 
       <!-- <h2>7</h2> -->
 
-      <span>7.</span><p>To customize your application settings, open the fresh file with an editor (vi, emacs, and nano are available in the sandbox environment). You should see that nginx has two settings: <code>Instance</code> and <code>Data</code>. </p>
+      <span>7.</span><p>To customize your application settings, open the nginx configuration file (<code>my-nginx-settings.yaml</code>) with an editor (vi, emacs, and nano are available, choose nano if you are unfamiliar). You should see that nginx has two settings: <code>Instance</code> and <code>Data</code>. </p>
 
       <p><code>Instance</code> is the label to use to mark the particular application instance so that you can remember what it was for when you look at it later. It follows the same naming ruls as for VO names, but only needs to be unique within your VO. For the tutorial, this basically means you don't have to worry about uniqueness. </p>
 
@@ -70,7 +76,7 @@
 
       <pre><code>slate app install nginx --vo vo-name --cluster sandbox --conf my-nginx-settings.yaml</code></pre>
 
-      <p>It is necessary to specify the application, which VO will own it (since you can belong to several), on which cluster you want it to be deployed, and which configuration file to use. </p>
+      <p>It is necessary to specify the application, which VO will own it, on which cluster you want it to be deployed, and which configuration file to use. </p>
 
       <p>Installing may take a few seconds, but you should then get a confirmation that your instance was installed, and the ID that was assigned to it. </p>
 
@@ -79,8 +85,6 @@
       <span>9.</span><p>To see your new application instance in the SLATE system you can run</p>
 
       <pre><code>slate instance list --vo vo-name</code></pre>
-
-      <p>Specifying the VO is not required, but limits the listing to just your instances. This command will show you basic information about which instances you have running where. </p>
 
       <!-- <h2>10</h2> -->
 
