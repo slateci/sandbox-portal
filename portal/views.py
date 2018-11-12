@@ -156,7 +156,8 @@ def logout():
     redirect_uri = url_for('home', _external=True)
 
     ga_logout_url = []
-    ga_logout_url.append(app.config['GLOBUS_AUTH_LOGOUT_URI'])
+    # ga_logout_url.append(app.config['GLOBUS_AUTH_LOGOUT_URI'])
+    ga_logout_url.append('https://www.globusid.org/logout')
     ga_logout_url.append('?client={}'.format(app.config['PORTAL_CLIENT_ID']))
     ga_logout_url.append('&redirect_uri={}'.format(redirect_uri))
     ga_logout_url.append('&redirect_name=Globus Sample Data Portal')
