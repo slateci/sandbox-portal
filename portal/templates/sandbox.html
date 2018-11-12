@@ -20,17 +20,14 @@
         <a href="{{url_for('tutorial')}}" class="btn btn-md btn-primary">
             Go to Sandbox
         </a>
+        <a href="{{url_for('delete')}}" class="btn btn-md btn-primary">
+            Reset
+        </a>
       {% else %}
         <a href="{{url_for('launch')}}" class="btn btn-md btn-primary">
             Launch
         </a>
       {% endif %}
-        <a href="{{url_for('sandbox')}}" class="btn btn-md btn-primary">
-            Refresh
-        </a>
-        <a href="{{url_for('delete')}}" class="btn btn-md btn-primary">
-            Reset
-        </a>
       </div>
     </div> <!-- container -->
 </section>
