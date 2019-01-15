@@ -13,7 +13,7 @@
       <!-- <h2>1</h2> -->
 
       <span>1.</span>
-      <p> In this tutorial, we'll guide you through some SLATE commandline client options and launch a simple edge service. </p> 
+      <p> In this tutorial, we'll guide you through some SLATE command line client options and launch a simple edge service. </p> 
       <p> On the left pane, we have provided an interactive shell that you can use to run SLATE commands and edit configuration files. Let's start by listing all clusters available in this SLATE federation:</p>
       <pre><code>slate cluster list</code></pre>
 
@@ -34,7 +34,7 @@
       
       <p>For the tutorial, you should create your own VO. In practice, most users will want to join an existing VO for reasons that we'll touch on shortly. You can create your VO with the command</p>
 
-      <pre><code>slate vo create vo-name</code></pre>
+      <pre><code>slate vo create <em style='color: #e83e8c;'>vo-name</em></code></pre>
 
       <p>where <code>vo-name</code> is the name you choose for your VO. Lowercase letters, numbers and dashes are allowed, although the name may not start or end with a dash.</p>
 
@@ -74,7 +74,7 @@
 
       <span>8.</span><p>When you have your configuration file ready you can install the application instance:</p>
 
-      <pre><code>slate app install nginx --vo vo-name --cluster sandbox --conf my-nginx-settings.yaml</code></pre>
+      <pre><code>slate app install nginx --vo <em style='color: #e83e8c;'>vo-name</em> --cluster sandbox --conf my-nginx-settings.yaml</code></pre>
 
       <p>It is necessary to specify the application, which VO will own it, on which cluster you want it to be deployed, and which configuration file to use. </p>
 
@@ -84,13 +84,13 @@
 
       <span>9.</span><p>To see your new application instance in the SLATE system you can run</p>
 
-      <pre><code>slate instance list --vo vo-name</code></pre>
+      <pre><code>slate instance list --vo <em style='color: #e83e8c;'>vo-name</em></code></pre>
 
       <!-- <h2>10</h2> -->
 
       <span>10.</span><p>To get more information about your instance, including how to access the page that it is serving, use the <code>slate instance info</code> command, which takes the instance ID as an argument. You should see something like:</p>
 
-      <pre><code>$ slate instance info instance_z-A3UUVSfto
+<pre><code>$ slate instance info <em style='color: #e83e8c;'>instance_z-A3UUVSfto</em>
       
 Name      Started                  VO  Cluster ID                  
 nginx-cnw 2018-Dec-31 20:38:26 UTC cnw sandbox instance_z-A3UUVSfto
@@ -129,7 +129,7 @@ Data: |-
 
       <span>11.</span><p>When you are finished with an application instance, you can delete it again:
 
-      <pre><code>$ slate instance delete instance_z-A3UUVSfto
+      <pre><code>$ slate instance delete <em style='color: #e83e8c;'>instance_z-A3UUVSfto</em>
 Successfully deleted instance instance_z-A3UUVSfto</code></pre>
 
       For more information on using SLATE, such as registering a cluster of your own or obtaining a local development environment, please see the <a href="http://slateci.io/docs/quickstart/" style="color:#286AC7;">SLATE Quickstart documentation</a>.
