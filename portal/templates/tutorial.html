@@ -13,7 +13,7 @@
       <!-- <h2>1</h2> -->
 
       <span>1.</span>
-      <p> In this tutorial, we'll guide you through some SLATE commandline client options and launch a simple edge service. </p> 
+      <p> In this tutorial, we'll guide you through some SLATE command line client options and launch a simple edge service. </p> 
       <p> On the left pane, we have provided an interactive shell that you can use to run SLATE commands and edit configuration files. Let's start by listing all clusters available in this SLATE federation:</p>
       <pre><code>slate cluster list</code></pre>
 
@@ -34,7 +34,7 @@
       
       <p>For the tutorial, you should create your own group. In practice, most users will want to join an existing grup for reasons that we'll touch on shortly. You can create your group with the command</p>
 
-      <pre><code>slate group create group-name --field technology</code></pre>
+      <pre><code>slate group create <em style='color: #e83e8c;'>group-name</em> --field technology</code></pre>
 
       <p>where <code>group-name</code> is the name you choose for your group. Lowercase letters, numbers and dashes are allowed, although the name may not start or end with a dash. <code>--field technology</code> describes the field of science in which your group will work, but for the demo the exact field does not matter.</p>
 
@@ -74,7 +74,7 @@
 
       <span>8.</span><p>When you have your configuration file ready you can install the application instance:</p>
 
-      <pre><code>slate app install nginx --group group-name --cluster sandbox --conf my-nginx-settings.yaml</code></pre>
+      <pre><code>slate app install nginx --group <em style='color: #e83e8c;'>group-name</em> --cluster sandbox --conf my-nginx-settings.yaml</code></pre>
 
       <p>It is necessary to specify the application, which group will own it, on which cluster you want it to be deployed, and which configuration file to use. </p>
 
@@ -84,13 +84,13 @@
 
       <span>9.</span><p>To see your new application instance in the SLATE system you can run</p>
 
-      <pre><code>slate instance list --group group-name</code></pre>
+      <pre><code>slate instance list --group <em style='color: #e83e8c;'>group-name</em></code></pre>
 
       <!-- <h2>10</h2> -->
 
       <span>10.</span><p>To get more information about your instance, including how to access the page that it is serving, use the <code>slate instance info</code> command, which takes the instance ID as an argument. You should see something like:</p>
 
-      <pre><code>$ slate instance info Instance_586f0424-3097-4b86-8d3b-c4f53ab78e01
+      <pre><code>$ slate instance info <em style='color: #e83e8c;'>instance_z-A3UUVSfto</em>
 Name      Started           Group  Cluster ID
 nginx-cnw 2018-Oct-17       cnw    sandbox Instance_586f0424-3097-4b86-
           23:04:07                         8d3b-c4f53ab78e01
@@ -100,12 +100,29 @@ Services:
 Name          Cluster IP    External IP     Ports
 cnw-nginx-cnw 10.105.79.115 128.135.158.198 80:32113/TCP
 
+Pods:
+  cnw-nginx-cnw-55985cfb76-7p4lz
+    Status: Running
+    Created: 2018-12-31T20:38:28Z
+    Host: sandbox.slateci.io
+    Host IP: 128.135.158.198
+    Conditions: Initialized at 2018-12-31T20:38:28Z
+                Ready at 2018-12-31T20:38:30Z
+                ContainersReady at 2018-12-31T20:38:30Z
+                PodScheduled at 2018-12-31T20:38:28Z
+    Containers:
+      nginx
+        State: running since 2018-12-31T20:38:29Z
+        Ready: true
+        Restarts: 0
+        Image: docker.io/nginx:1.7.9
+
 Configuration:
 Instance: cnw
 Data: |-
   &lt;h1&gt;Hello World!&lt;h1&gt;</code></pre>
 
-      <p>The basic information from the list command is repeated, but you will also see networking information and the configuration you supplied. To reach the page served by your instance you need the external IP address and external port (128.135.158.198 and 32113 in this example, the second port number listed). Combining these into a URL (http://128.135.158.198:32113) should allow you to see view your page in a web browser. </p>
+      <p>The basic information from the list command is repeated, but you will also see networking information, information about the underlying kubernetes (and docker) objects, and the configuration you supplied. To reach the page served by your instance you need the external IP address and external port (128.135.158.198 and 32113 in this example, the second port number listed). Combining these into a URL (http://128.135.158.198:32113) should allow you to see view your page in a web browser. </p>
 
       <p>Congratulations, you have deployed an edge service!</p>
 
@@ -113,8 +130,8 @@ Data: |-
 
       <span>11.</span><p>When you are finished with an application instance, you can delete it again:
 
-      <pre><code>$ slate instance delete Instance_586f0424-3097-4b86-8d3b-c4f53ab78e01
-Successfully deleted instance Instance_586f0424-3097-4b86-8d3b-c4f53ab78e01</code></pre>
+      <pre><code>$ slate instance delete <em style='color: #e83e8c;'>instance_z-A3UUVSfto</em>
+Successfully deleted instance instance_z-A3UUVSfto</code></pre>
 
       For more information on using SLATE, such as registering a cluster of your own or obtaining a local development environment, please see the <a href="http://slateci.io/docs/quickstart/" style="color:#286AC7;">SLATE Quickstart documentation</a>.
       
