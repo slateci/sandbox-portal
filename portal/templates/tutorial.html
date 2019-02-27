@@ -29,22 +29,22 @@
 
       <!-- <h2>3</h2> -->
 
-      <span>3.</span><p>To use the resources on the SLATE platform, you must first belong to a <em>virtual organization</em> (VO). You can list existing VOs with:</p>
-      <pre><code>slate vo list </code></pre> 
+      <span>3.</span><p>To use the resources on the SLATE platform, you must first belong to a <em>group</em>. You can list existing groups with:</p>
+      <pre><code>slate group list </code></pre> 
       
-      <p>For the tutorial, you should create your own VO. In practice, most users will want to join an existing VO for reasons that we'll touch on shortly. You can create your VO with the command</p>
+      <p>For the tutorial, you should create your own group. In practice, most users will want to join an existing grup for reasons that we'll touch on shortly. You can create your group with the command</p>
 
-      <pre><code>slate vo create vo-name</code></pre>
+      <pre><code>slate group create group-name --field technology</code></pre>
 
-      <p>where <code>vo-name</code> is the name you choose for your VO. Lowercase letters, numbers and dashes are allowed, although the name may not start or end with a dash.</p>
+      <p>where <code>group-name</code> is the name you choose for your group. Lowercase letters, numbers and dashes are allowed, although the name may not start or end with a dash. <code>--field technology</code> describes the field of science in which your group will work, but for the demo the exact field does not matter.</p>
 
       <!-- <h2>4</h2> -->
 
-      <span>4.</span><p>In general you cannot use a cluster connected to SLATE without the permission of the cluster owner. Some cluster owners mark their clusters as allowing access for all VOs, so you can use them right away, while for others you will need to ask the owners for permission. You can check a given cluster's policies with the <code>slate cluster list-allowed-vos</code> command, which takes the cluster to query as an argument. If you run</p>
+      <span>4.</span><p>In general you cannot use a cluster connected to SLATE without the permission of the cluster owner. Some cluster owners mark their clusters as allowing access for all groups, so you can use them right away, while for others you will need to ask the owners for permission. You can check a given cluster's policies with the <code>slate cluster list-allowed-groups</code> command, which takes the cluster to query as an argument. If you run</p>
 
-      <pre><code>slate cluster list-allowed-vos sandbox</code></pre>
+      <pre><code>slate cluster list-allowed-groups sandbox</code></pre>
 
-      <p>you should see an asterisk (*) indicating that all VOs are allowed, including the one you just created.</p>
+      <p>you should see an asterisk (*) indicating that all groups are allowed, including the one you just created.</p>
 
       <!-- <h2>5</h2> -->
 
@@ -66,7 +66,7 @@
 
       <span>7.</span><p>To customize your application settings, open the nginx configuration file (<code>my-nginx-settings.yaml</code>) with an editor (vi, emacs, and nano are available, choose nano if you are unfamiliar). You should see that nginx has two settings: <code>Instance</code> and <code>Data</code>. </p>
 
-      <p><code>Instance</code> is the label to use to mark the particular application instance so that you can remember what it was for when you look at it later. It follows the same naming ruls as for VO names, but only needs to be unique within your VO. For the tutorial, this basically means you don't have to worry about uniqueness. </p>
+      <p><code>Instance</code> is the label to use to mark the particular application instance so that you can remember what it was for when you look at it later. It follows the same naming rules as for group names, but only needs to be unique within your group. For the tutorial, this basically means you don't have to worry about uniqueness. </p>
 
       <p><code>Data</code> is the HTML document that you want ngnix to display. You can change it to whatever you want so that when you run nginx you will be able to see that it is your personalized instance. </p>
 
@@ -74,9 +74,9 @@
 
       <span>8.</span><p>When you have your configuration file ready you can install the application instance:</p>
 
-      <pre><code>slate app install nginx --vo vo-name --cluster sandbox --conf my-nginx-settings.yaml</code></pre>
+      <pre><code>slate app install nginx --group group-name --cluster sandbox --conf my-nginx-settings.yaml</code></pre>
 
-      <p>It is necessary to specify the application, which VO will own it, on which cluster you want it to be deployed, and which configuration file to use. </p>
+      <p>It is necessary to specify the application, which group will own it, on which cluster you want it to be deployed, and which configuration file to use. </p>
 
       <p>Installing may take a few seconds, but you should then get a confirmation that your instance was installed, and the ID that was assigned to it. </p>
 
@@ -84,16 +84,16 @@
 
       <span>9.</span><p>To see your new application instance in the SLATE system you can run</p>
 
-      <pre><code>slate instance list --vo vo-name</code></pre>
+      <pre><code>slate instance list --group group-name</code></pre>
 
       <!-- <h2>10</h2> -->
 
       <span>10.</span><p>To get more information about your instance, including how to access the page that it is serving, use the <code>slate instance info</code> command, which takes the instance ID as an argument. You should see something like:</p>
 
       <pre><code>$ slate instance info Instance_586f0424-3097-4b86-8d3b-c4f53ab78e01
-Name      Started           VO  Cluster ID
-nginx-cnw 2018-Oct-17       cnw sandbox Instance_586f0424-3097-4b86-
-          23:04:07                             8d3b-c4f53ab78e01
+Name      Started           Group  Cluster ID
+nginx-cnw 2018-Oct-17       cnw    sandbox Instance_586f0424-3097-4b86-
+          23:04:07                         8d3b-c4f53ab78e01
           UTC
 
 Services:
@@ -118,7 +118,7 @@ Successfully deleted instance Instance_586f0424-3097-4b86-8d3b-c4f53ab78e01</cod
 
       For more information on using SLATE, such as registering a cluster of your own or obtaining a local development environment, please see the <a href="http://slateci.io/docs/quickstart/" style="color:#286AC7;">SLATE Quickstart documentation</a>.
       
-      <p>When you are finished using this page you can (but do not have to) use <code>exit</code> to disconnect your terminal. If you want to delete your sandbox environment entirely you can <a href="https://sandbox.slateci.io:5000/sandbox/delete" style="color:#286AC7;">reset</a> it. Otherwise, your environment will be automatically deleted after a a few days of inactivity. 
+      <p>When you are finished using this page you can (but do not have to) use <code>exit</code> to disconnect your terminal. If you want to delete your sandbox environment entirely you can <a href="https://sandbox.slateci.io:5000/sandbox/delete" style="color:#286AC7;">reset</a> it. Otherwise, your environment will be automatically deleted after a few days of inactivity. 
 
     </div>
   </div>
