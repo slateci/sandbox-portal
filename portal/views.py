@@ -71,7 +71,7 @@ def sandbox():
     except:
         s = "No running sandboxes"
 
-    return render_template('sandbox.html', status=s, endpoint=endpoint)
+    return render_template('home.html', status=s, endpoint=endpoint)
 
 
 @app.route('/sandbox/new', methods=['GET'])
@@ -192,11 +192,6 @@ def profile():
         name = session['name'] = request.form['name']
         email = session['email'] = request.form['email']
         institution = session['institution'] = request.form['institution']
-
-        # database.save_profile(identity_id=session['primary_identity'],
-        #                      name=name,
-        #                      email=email,
-        #                      institution=institution)
 
         flash('Thank you! Your profile has been successfully updated.')
 

@@ -11,7 +11,12 @@
     <h1>Welcome to the SLATE Sandbox</h1>
     <p class="lead">Launch an interactive SLATE tutorial session</p>
     {% if session.get('is_authenticated') %}
-    <a role="button" href="{{url_for('sandbox')}}" class="btn btn-outline-light">Click here to get started</a>
+      {% if endpoint %}
+      <a href="{{url_for('tutorial')}}" class="btn btn-outline-light">Go to Sandbox</a>
+      <a href="{{url_for('delete')}}" class="btn btn-outline-light">Reset</a>
+      {% else %}
+      <a role="button" href="{{url_for('launch')}}" class="btn btn-outline-light">Click here to get started</a>
+      {% endif %}
     {% else %}
     <a role="button" href="{{url_for('login')}}" class="btn btn-outline-light">Login</a>
     <a role="button" href="{{url_for('signup')}}" class="btn btn-outline-light">Sign Up</a>
