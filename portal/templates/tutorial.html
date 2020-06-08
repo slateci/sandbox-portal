@@ -97,8 +97,8 @@ nginx-cnw 2018-Oct-17       cnw    sandbox Instance_586f0424-3097-4b86-
           UTC
 
 Services:
-Name          Cluster IP    External IP     Ports
-cnw-nginx-cnw 10.105.79.115 128.135.158.198 80:32113/TCP
+Name          Cluster IP    External IP     Ports        URL       
+cnw-nginx-cnw 10.105.79.115 128.135.158.198 80:32113/TCP http://cnw-nginx-test.sandbox.slateci.net/
 
 Pods:
   cnw-nginx-cnw-55985cfb76-7p4lz
@@ -119,10 +119,21 @@ Pods:
 
 Configuration:
 Instance: cnw
+Ingress:
+  Class: slate
+  Subdomain: cnw-test
+  Enabled: true
 Data: |-
   &lt;h1&gt;Hello World!&lt;h1&gt;</code></pre>
 
-      <p>The basic information from the list command is repeated, but you will also see networking information, information about the underlying kubernetes (and docker) objects, and the configuration you supplied. To reach the page served by your instance you need the external IP address and external port (128.135.158.198 and 32113 in this example, the second port number listed). Combining these into a URL (http://128.135.158.198:32113) should allow you to see view your page in a web browser. </p>
+      <p>The basic information from the list command is repeated, but you will also see networking information, information about the underlying Kubernetes (and Docker) objects, and the configuration you supplied. In order to view a page on the webserver that you have instantiated, you can use the <pre>curl</pre> command:</p>
+    
+    <pre><code>$ curl http://cnw-text.sandbox.slateci.net
+<html>
+<body>
+<h1>Hello world!</h1>
+</body>
+    </code></pre> 
 
       <p>Congratulations, you have deployed an edge service!</p>
 
