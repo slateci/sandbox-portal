@@ -126,13 +126,13 @@ Ingress:
 Data: |-
   &lt;h1&gt;Hello World!&lt;h1&gt;</code></pre>
 
-      <p>The basic information from the list command is repeated, but you will also see networking information, information about the underlying Kubernetes (and Docker) objects, and the configuration you supplied. In order to view a page on the webserver that you have instantiated, you can use the <pre>curl</pre> command:</p>
+      <p>The basic information from the list command is repeated, but you will also see networking information, information about the underlying Kubernetes (and Docker) objects, and the configuration you supplied. In order to view a page on the webserver that you have instantiated, you can use the <em style='color: #e83e8c;'>curl</em> command
     
     <pre><code>$ curl http://cnw-text.sandbox.slateci.net
-<html>
-<body>
-<h1>Hello world!</h1>
-</body>
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;Hello world!&lt;/h1&gt;
+&lt;/body&gt;
     </code></pre> 
 
       <p>Congratulations, you have deployed an edge service!</p>
