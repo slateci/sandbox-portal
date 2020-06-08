@@ -121,14 +121,14 @@ Configuration:
 Instance: cnw
 Ingress:
   Class: slate
-  Subdomain: cnw-test
+  Subdomain: cnw-nginx-test
   Enabled: true
 Data: |-
   &lt;h1&gt;Hello World!&lt;h1&gt;</code></pre>
 
       <p>The basic information from the list command is repeated, but you will also see networking information, information about the underlying Kubernetes (and Docker) objects, and the configuration you supplied. In order to view a page on the webserver that you have instantiated, you can use the <em style='color: #e83e8c;'>curl</em> command
     
-    <pre><code>$ curl http://cnw-text.sandbox.slateci.net
+    <pre><code>$ curl http://cnw-nginx-text.sandbox.slateci.net
 &lt;html&gt;
 &lt;body&gt;
 &lt;h1&gt;Hello world!&lt;/h1&gt;
