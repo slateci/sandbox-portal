@@ -1,120 +1,26 @@
-[![Build Status](https://travis-ci.org/globus/globus-sample-data-portal.svg?branch=master)](https://travis-ci.org/globus/globus-sample-data-portal)
+# SLATE Sandbox Overview
+The SLATE Sandbox is an application run by the SLATE Core Team to allow members of the community to test slate from a web browser.
 
-# Modern Research Data Portal
-Simple web app framework demonstrating how to build a data portal using
-the Globus [platform](https://www.globus.org/platform).
+It is made of several components as shown in this architecture diagram:
 
-## Overview
-This repository contains two separate server applications. The first, the "Portal," is an example "research portal"
-that demonstrates how to authenticate users with Globus [Auth](https://docs.globus.org/api/auth/), how to make requests against the Globus [Transfer API](https://docs.globus.org/api/transfer/), and how to interact with an HTTPS-enabled Globus Endpoint. All of the Portal code can be found in the `portal/` directory.
+![Architecture diagram for sandbox](diagram.png "Architecture diagram for sandbox")
 
-The second application, the "Service," is an example "resource server" that demonstrates how a research portal can offload tasks to a separate service that has the capability to perform tasks on behalf of users. All of the Service code can be found in the `service/` directory.
+All components are installed on sandbox.slateci.io. The flow is the following:
+* User logs to the portal using his credentials
+* The portal asks the spawner to start a ttyd container for the user, if it is not yet running
+* The ttyd container provisions a web server on a specific port assigned to the user, that allows to run a terminal window within the container over http
+* The portal presents a page with a frame that opens the connection to the correct ttyd web port for the specific user
+* User interact with the ttyd web service directly
 
-## Getting Started
-#### Set up your environment.
-* [OS X](#os-x)
-* [Linux](#linux-ubuntu)
-* [Windows](#windows)
-* [Amazon EC2](#amazon-ec2)
+The components and their source location:
+* The portal ([Source](https://github.com/slateci/sandbox-portal)) is the entry point for the user. It is a web application written in python and html. It is a modification of the [Modern Research Data Portal](https://github.com/globus/globus-sample-data-portal), sample Globus application. See below for more information
+* The spawner ([Source](https://github.com/slateci/sandbox-spawner)) is an internal service that manages each user container instance on the kubernetes cluster. It is a C++ application. See the source repo for more information.
+* The ttyd application ([Source](https://github.com/slateci/slate-ttyd)) is the application that allows to access to a terminal windows through http. It is a fork of [ttyd](https://github.com/tsl0922/ttyd/) to accomodate the security requirements. See the source repo for more information.
+* The ttyd container ([Source](https://github.com/slateci/container-ttyd)) packages the ttyd application into a Docker container. See the source repo for more information.
 
-#### Create your own App registration for use in the Portal. 
-* Visit the [Globus Developer Pages](https://developers.globus.org) to register an App.
-* If this is your first time visiting the Developer Pages you'll be asked to create a Project. A Project is a way to group Apps together.
-* When registering the App you'll be asked for some information, including the redirect URL and any scopes you will be requesting.
-    * Redirect URL: `https://localhost:5000/authcallback` (note: if using EC2 `localhost` should be replaced with the IP address of your instance).
-    * Scopes: `urn:globus:auth:scope:transfer.api.globus.org:all`, `openid`, `profile`, `email`
-* After creating your App the client id and secret can be copied into this project in the following two places:
-    * `portal/portal.conf` in the `PORTAL_CLIENT_ID` and `PORTAL_CLIENT_SECRET` properties.
-    * `service/service.conf` where the `PORTAL_CLIENT_ID` is used to validate the access token that the Portal sends to the Service.
+The overall installation information can be found [here](https://github.com/slateci/sandbox-spawner/blob/master/resources/deployment.md).
 
-### OS X
+# SLATE Sandbox Portal
 
-##### Environment Setup
+This repository contains the source code for the portal. This is a modified version of the [Modern Research Data Portal](https://github.com/globus/globus-sample-data-portal), sample Globus application. See below for more information. The original readme file of the forked version can be found [here](MRDP-README.md).
 
-* `sudo easy_install pip`
-* `sudo pip install virtualenv`
-* `git clone https://github.com/globus/globus-sample-data-portal`
-* `cd globus-sample-data-portal`
-* `virtualenv venv`
-* `source venv/bin/activate`
-* `pip install -r requirements.txt`
-
-##### Running the Portal App
-
-* `./run_portal.py`
-* point your browser to `https://localhost:5000`
-
-##### Running the Service App
-
-* `./run_service.py`
-* API is located at `https://localhost:5100/api`
-
-### Linux (Ubuntu)
-
-##### Environment Setup
-
-* `sudo apt-get update`
-* `sudo apt-get install python-pip`
-* `sudo pip install virtualenv`
-* `sudo apt-get install git`
-* `git clone https://github.com/globus/globus-sample-data-portal`
-* `cd globus-sample-data-portal`
-* `virtualenv venv`
-* `source venv/bin/activate`
-* `pip install -r requirements.txt`
-
-##### Running the Portal App
-
-* `./run_portal.py`
-* point your browser to `https://localhost:5000`
-
-##### Running the Service App
-
-* `./run_service.py`
-* API is located at `https://localhost:5100/api`
-
-### Windows
-
-##### Environment Setup
-
-* Install Python (<https://www.python.org/downloads/windows/>)
-* `pip install virtualenv`
-* Install git (<https://git-scm.com/downloads>)
-* `git clone https://github.com/globus/globus-sample-data-portal`
-* `cd globus-sample-data-portal`
-* `virtualenv venv`
-* `venv\Scripts\activate`
-* `pip install -r requirements.txt`
-
-##### Running the Portal App
-
-* `python run_portal.py`
-* point your browser to `https://localhost:5000`
-
-##### Running the Service App
-
-* `python run_service.py`
-* API is located at `https://localhost:5100/api`
-
-### Amazon EC2
-
-##### Environment Setup
-
-* `git clone https://github.com/globus/globus-sample-data-portal`
-* `cd globus-sample-data-portal`
-* `virtualenv venv`
-* `source venv/bin/activate`
-* `pip install -r requirements.txt`
-* `sed -i 's/localhost/0.0.0.0/' run_portal.py`
-* `sed -i '4,//s/localhost/YOUR_IP/' portal/portal.conf`
-* `echo "SESSION_COOKIE_DOMAIN = 'YOUR_IP'" >> portal/portal.conf`
-
-##### Running the Portal App
-
-* `./run_portal.py`
-* point your web browser to `https://YOUR_IP:5000/`
-
-##### Running the Service App
-
-* `./run_service.py`
-* API is located at `https://localhost:5100/api`
