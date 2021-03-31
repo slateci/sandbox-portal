@@ -24,3 +24,6 @@ The overall installation information can be found [here](https://github.com/slat
 
 This repository contains the source code for the portal. This is a modified version of the [Modern Research Data Portal](https://github.com/globus/globus-sample-data-portal), sample Globus application. See below for more information. The original readme file of the forked version can be found [here](MRDP-README.md).
 
+# Checkmk monitoring
+
+Checkmk is configured to test whether the main website page is online.
